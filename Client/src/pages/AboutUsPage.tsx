@@ -14,15 +14,18 @@ const AboutUsPage = () => {
   return (
     <>
       <div className="h-[100px] py-4 px-2   flex border-b   w-full  justify-between items-center bg-[#242424]	 ">
+      <a href="/" >
         <div
           className=" flex  items-center  cursor-pointer text-white text-lg md:text-2xl font-extrabold  "
-          onClick={(e) => navigate("/")}
+          
         >
+          
           <span>
             <SiHatenabookmark size={32} />
           </span>
           &nbsp;BLOGBAR
         </div>
+          </a>
       </div>
       <div className="bg-[#242424] px-2 py-4 w-full h-screen text-white">
         <h1 className=" text-[40px] sm:text-[50px]  text-white font-serif">
