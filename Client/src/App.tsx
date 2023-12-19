@@ -9,7 +9,6 @@ import NotFoundPage from './pages/NotFoundPage';
 import UserPage from './pages/UserPage';
 import SettingPage from './pages/SettingPage';
 import BlogReadPage from './pages/BlogRead';
-import TestingPage from './pages/TestingPage';
 import SearchPage from './pages/SearchPage';
 
 function App() {
@@ -22,7 +21,6 @@ function App() {
       <Route path='/register' element={<RegisterPage/>} />
       <Route path='/about' element={<AboutUsPage/>} />
       <Route path='/search' element={<SearchPage/>} />
-      <Route path='/testing' element={<TestingPage/>} />
       <Route path='/user/:username' element={<UserPage/>} />
       <Route path='/me/settings' element={<SettingPage/>}/>
       <Route path='/blog/:_id' element={<BlogReadPage/>}/>
