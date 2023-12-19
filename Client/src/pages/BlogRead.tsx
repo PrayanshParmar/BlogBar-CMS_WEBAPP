@@ -98,7 +98,7 @@ const BlogReadPage = () => {
   const commentModel = useCommentModel();
   const readingTime = calculateReadingTime(blog?.body);
   const publishedTime = formatTimeDifference(blog?.updatedAt);
-  const likes = formatNumber(150000000);
+  const likes = formatNumber(1500);
 
   const [isCommentSectionClicked, setIsCommentSectionClicked] = useState(false);
 
