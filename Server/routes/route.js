@@ -222,7 +222,7 @@ router.put(
     const { exp } = data;
     const id = data.id;
     const { type } = req.body;
-    // console.log(req.body);
+    
     if (data != null) {
       if (type == "delete") {
         try {
@@ -323,7 +323,7 @@ router.put(
                 { [type]: input },
                 { new: true }
               );
-              // console.log(updatedUser);
+              
               const token = createTokenForUser(updatedUser);
               res
                 .status(200)
@@ -358,8 +358,7 @@ router.delete("/delete-blog", authenticate, async (req, res) => {
           authorId: data.id,
           _id: _id,
         });
-        //  console.log(check);
-        if (res) {
+        if (check) {
           res.status(200).json({ message: "Deleted succesfully" });
         } else {
           res.status(422).json({ message: "Blog not found" });
@@ -414,33 +413,61 @@ router.post("/userProfile", authenticate, async (req, res) => {
   }
 });
 
-router.post("/like", authenticate, async (req, res) => {
-  const { like, blogId, authorId } = req.body;
-  const auth = req.data.id;
-  if (like && blogId && authorId) {
-    if (auth == authorId) {
+router.get("/get-likes/:_id",  async(req,res) => {
+  const {_id} = req.params;
+  try {
+    if (_id) {
+      const data = await Like.find({ blogId: _id });
+      const likes = data.length;
+      if (likes !== 0) {
+        res.status(200).json(likes);
+      } else {
+        res.status(404).json({ message: "Not found" });
+      }
+    } else {
+      res.status(400).json({ message: "Please fill all details" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+
+})
+
+router.post("/post-like", authenticate, async (req, res) => {
+  const { blogId  } = req.body;
+  
+  if(req.data){
+    const authorId = req.data.id;
+  if (blogId) {
       try {
         const blogAuth = await Blog.findById({ _id: blogId });
         if (blogAuth) {
-          const like = new like({
-            authorId,
-            blogId,
-            like,
-          });
-          like.save();
-          res.status(200).json({ message: "Updated Succesfully" });
+          const checkLikeOneTime = await Like.find({blogId:blogId,authorId:authorId});
+           
+          if(checkLikeOneTime.length != 0){
+            res.status(400).json({message:"Not allowed"});
+          }else{
+            const data = new Like({
+              authorId,
+              blogId,
+            });
+            data.save();
+            res.status(200).json({ message: "Updated Succesfully" });
+          }
         } else {
           res.status(400).json({ message: "Blog not found" });
         }
       } catch (error) {
-        console.log(error);
+        
         res.status(500).json({ message: "Internal Server Error" });
       }
-    } else {
-      res.status(403).json({ message: "Access Denied" });
-    }
+    
   } else {
     res.status(400).json({ message: "Please fill all details" });
+  }
+  }else{
+    res.status(401).json({ message: "Access Denied" });
+ 
   }
 });
 
@@ -463,7 +490,7 @@ router.post("/post-comment", authenticate, async (req, res) => {
           res.status(400).json({ message: "Blog not found" });
         }
       } catch (error) {
-        console.log(error);
+        
         res.status(500).json({ message: "Internal Server Error" });
       }
     } else {
@@ -502,7 +529,7 @@ router.get("/get-comments/:BlogId", async (req, res) => {
         path: "authorId",
         select: "username profile_img_url ",
       });
-      console.log(data);
+      
       if (data.length !== 0) {
         res.status(200).json(data);
       } else {

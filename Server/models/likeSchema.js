@@ -1,10 +1,7 @@
 const {Schema, model} = require('mongoose');
 
 const LikeSchema = new Schema({
-    likes:{
-        type: Number,
-        required: true,
-    },
+    
     blogId:{
         type: Schema.Types.ObjectId,
        ref: 'blog',
