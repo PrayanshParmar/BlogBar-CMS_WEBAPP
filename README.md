@@ -6,14 +6,14 @@ The MERN Blogging Platform is a full-stack web application that empowers blogger
 
 ## Key Features:
 
-**User Authentication:** Secure registration and login system for bloggers.
-**Rich Text Editor:** A powerful editor for formatting and styling blog content effortlessly.
-**Support Markdown:** Support quotes, links, and code in different different languages.  
-**Blog Management:** Intuitive UI for creating, and deleting blog posts.
-**Discover Content:** Explore blogs by categories, users and search topics.
-**User Profiles:** Showcase your bio, profile picture, and published posts.
-**Engagement Features:** Commenting and liking for community interaction.
-**Responsive Design:** Ensures a seamless experience across devices.
+**User Authentication:** Secure registration and login system for bloggers.</br>
+**Rich Text Editor:** A powerful editor for formatting and styling blog content effortlessly.</br>
+**Support Markdown:** Support quotes, links, and code in different different languages.</br>
+**Blog Management:** Intuitive UI for creating, and deleting blog posts.</br>
+**Discover Content:** Explore blogs by categories, users and search topics.</br>
+**User Profiles:** Showcase your bio, profile picture, and published posts.</br>
+**Engagement Features:** Commenting and liking for community interaction.</br>
+**Responsive Design:** Ensures a seamless experience across devices.</br>
 
 ## Working Screenshots
 
