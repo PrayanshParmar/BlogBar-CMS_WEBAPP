@@ -1,4 +1,4 @@
 node_modules/
 config.env
-/Server/uploads/blogPic/
-/Server/uploads/profilePic/
+Server/uploads/blogPic/
+Server/uploads/profilePic/
