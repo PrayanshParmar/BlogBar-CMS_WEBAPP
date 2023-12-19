@@ -15,6 +15,7 @@ import CommentModel from "../models/CommentModel";
 import { formatTimeDifference } from "../utils/formatTimeDifference";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { formatNumber } from "../utils/formatNumber";
+import { json } from "stream/consumers";
 interface BlogProps {
   _id: string;
   title: string;
@@ -34,6 +35,7 @@ const BlogReadPage = () => {
   const [blog, setBlog] = useState<BlogProps | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [likes, setLikes] = useState(0);
   const [clength, setClength] = useState(0);
   let { _id } = useParams();
   const navigate = useNavigate();
@@ -95,10 +97,59 @@ const BlogReadPage = () => {
     fetchData();
   }, []);
 
+  const fetchLikes = async () => {
+    try {
+      const res = await fetch(`/get-likes/${_id}`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (res.status === 200) {
+        const data = await res.json();
+        setLikes(data);
+      } else {
+        setLikes(0);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchLikes();
+  }, [setLikes]);
+
+  const handleLikes = async () => {
+    try {
+      const res = await fetch("/post-like", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          blogId: _id,
+        }),
+      });
+
+      if (res.status === 200) {
+        fetchLikes();
+      } else {
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const commentModel = useCommentModel();
   const readingTime = calculateReadingTime(blog?.body);
   const publishedTime = formatTimeDifference(blog?.updatedAt);
-  const likes = formatNumber(1500);
+  const likesCount = formatNumber(likes);
 
   const [isCommentSectionClicked, setIsCommentSectionClicked] = useState(false);
 
@@ -178,14 +229,17 @@ const BlogReadPage = () => {
                             </div>
                             <div className=" border-b  h-[50px] py-3 flex flex-row justify-between  items-center">
                               <div className=" flex gap-4  items-center">
-                                <div className=" grow min-w-[20px]  cursor-pointer w-[70px] flex items-center gap-2">
+                                <div
+                                  onClick={handleLikes}
+                                  className=" grow min-w-[20px]  cursor-pointer w-[70px] flex items-center gap-2"
+                                >
                                   <PiHandsClappingFill
                                     title="Clap"
                                     size={20}
                                     className="  fill-slate-700 hover:fill-black"
                                   />
                                   <span className=" grow-0  text-[#6B6B6B] text-[13px] ">
-                                    {likes}
+                                    {likesCount}
                                   </span>
                                 </div>
 
