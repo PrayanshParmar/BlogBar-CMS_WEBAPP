@@ -31,7 +31,6 @@ const CommentFeed: React.FC<CommentDataProps> = ({ commentData }) => {
   return (
     <>
       <div id="comment-feed" className=" pt-4 px-6 ">
-        {/* <Comment/> */}
         <>
           {reversedData.map((comment, index) => (
             <Comment
