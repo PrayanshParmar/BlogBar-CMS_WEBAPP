@@ -20,16 +20,8 @@ const Comment: React.FC<CommentProps> = ({
   updatedAt,
 }) => {
   const [readmore, setReadmore] = useState(true);
-  const navigate = useNavigate();
   const time = formatTimeDifference(updatedAt);
-  // const lines = body.split('\n').length;
-
-  // const words = body.split(/\s+/).filter((word) => word.length > 0);
-  // const lines = words.length;
-
-  // const words = body.split(/\s+/).filter((word) => word.length > 0);
-  // const lines = words.length;
-  const maxCharactersPerLine = 72; // Set the maximum number of characters per line
+  const maxCharactersPerLine = 72;
   const lines = body.split('\n').reduce((totalLines, line) => {
     return totalLines + Math.ceil(line.length / maxCharactersPerLine);
   }, 0);
